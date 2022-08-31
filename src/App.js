@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState, useCallback } from 'react';
+import { Background } from "./App.style";
+import { ThemeProvider } from "styled-components"
+import Todo from './components/Todo/Todo.jsx';
+import { lighttheme, darktheme } from "./theme";
+
 
 function App() {
+  const [Theme, setTheme ] = useState(localStorage.getItem("Theme") || "dark");
+
+  useEffect(() => {
+    localStorage.removeItem('Theme');
+    localStorage.setItem('Theme', Theme);
+  }, [Theme])
+
+  const toggleTheme = () => {
+    setTheme(current => current === 'dark' ? 'light' : 'dark');
+  }
+
+  const memoizedCallback = useCallback(() => {toggleTheme()},[]);
+
   return (
+    <ThemeProvider theme={Theme === 'dark' ? darktheme : lighttheme }>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Background />
+      <Todo memoizedCallback={memoizedCallback} Theme={Theme} />
     </div>
+    </ThemeProvider>
   );
 }
 

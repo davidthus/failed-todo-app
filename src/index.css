@@ -1,3 +1,18 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*:focus {
+  outline: 2px dashed whitesmoke;
+}
+
+.gradient {
+  background: rgb(98,215,206);
+  background: linear-gradient(144deg, rgba(98,215,206,1) 0%, rgba(180,42,201,1) 100%);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
